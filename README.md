@@ -14,7 +14,6 @@
 
 ## Швидкий старт
 
-
 Склонуйте репозиторій:
 
 ```bash
@@ -30,6 +29,15 @@ git config user.email "your.email@ztu.edu.ua"
 ```bash
 ./setup/install.sh  # macOS / Linux
 ```
+
+Запустіть локальний сервер для перегляду завдань у браузері:
+
+```bash
+php -S localhost:8000
+```
+
+Відкрийте у браузері, наприклад:
+<http://localhost:8000/lr1/variants/v1/task6.php>
 
 Детальні інструкції встановлення для Windows, macOS та Linux: [setup/README.md](setup/README.md)
 
