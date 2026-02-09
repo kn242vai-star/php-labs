@@ -29,7 +29,7 @@ W3Schools — PHP OOP (класи, об'єкти, конструктори, кл
   - `name = "User"`, `login = "User"`, `password = "qwerty"`
 - Створити 4-й об'єкт через `clone`
 
-### 5-6. Здача
+## Здача
 
-- Закомітити на git.ztu.edu.ua
-- Звіт, гілка в репозиторії, доступ викладачам
+- Гілка `lr3` в репозиторії (див. [acceptance-criteria.md](../docs/acceptance-criteria.md))
+- Push на GitHub

@@ -12,7 +12,7 @@
 
 ### 0. Налаштування середовища
 
-Встановити WAMP/LAMP, перевірити роботу через `http://localhost/`. Проекти розміщуються в `wamp/www`.
+Встановити PHP та Git — див. [setup/README.md](../setup/README.md). Запуск: `php -S localhost:8000` з кореня проєкту.
 
 ### 1. Перша програма
 
@@ -50,6 +50,5 @@
 
 ## Здача
 
-- Звіт
-- Гілка `Back-End` в репозиторії
-- Доступ викладачу
+- Гілка `lr1` в репозиторії (див. [acceptance-criteria.md](../docs/acceptance-criteria.md))
+- Push на GitHub

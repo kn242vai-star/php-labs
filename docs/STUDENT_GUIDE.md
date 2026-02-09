@@ -25,6 +25,21 @@
 
 ## Початкове налаштування (один раз)
 
+### Крок 0: Встановіть PHP та Git
+
+Якщо PHP та Git ще не встановлені — див. [setup/README.md](../setup/README.md).
+
+### Крок 1: Налаштуйте Git (ім'я та email)
+
+```bash
+git config --global user.name "Прізвище Ім'я"
+git config --global user.email "your.email@ztu.edu.ua"
+```
+
+> Це потрібно зробити **один раз**. Без цього коміти будуть анонімними.
+
+### Крок 2: Fork та Clone
+
 1. Відкрийте: <https://github.com/victorchei/php-labs>
 2. Натисніть **Fork** (правий верхній кут)
 3. Clone свій форк:
@@ -35,7 +50,7 @@ cd php-labs
 git remote add upstream https://github.com/victorchei/php-labs.git
 ```
 
-4. Запустіть сервер:
+### Крок 3: Запустіть сервер
 
 ```bash
 php -S localhost:8000
@@ -86,7 +101,9 @@ cd lr1/demo && php -S localhost:8080
 3. Подивись demo/ (приклад)
 4. Напиши код
 5. Перевір у браузері
-6. git add . && git commit && git push
+6. git add .
+7. git commit -m "feat: taskN - опис"
+8. git push
 ```
 
 **Кількість варіантів:** 30 (v1 — v30).

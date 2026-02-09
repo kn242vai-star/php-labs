@@ -43,4 +43,5 @@ W3Schools PHP Tutorial — функції, рядки, масиви, форми
 
 ## Здача
 
-Закомітити на git.ztu.edu.ua, доступ викладачам.
+- Гілка `lr2` в репозиторії (див. [acceptance-criteria.md](../docs/acceptance-criteria.md))
+- Push на GitHub

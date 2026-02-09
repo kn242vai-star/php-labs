@@ -97,4 +97,5 @@ W3Schools PHP OOP + лекція по MVC
 
 ## Здача
 
-Закомітити на git.ztu.edu.ua, доступ викладачам.
+- Гілка `lr4` в репозиторії (див. [acceptance-criteria.md](../docs/acceptance-criteria.md))
+- Push на GitHub
