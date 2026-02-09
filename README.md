@@ -17,21 +17,22 @@
 
 > **Повна інструкція:** [docs/STUDENT_GUIDE.md](docs/STUDENT_GUIDE.md)
 
-1. **Fork** цей репозиторій (кнопка Fork на GitHub)
-2. **Clone** свій форк:
+1. **Налаштуйте середовище** — встановіть PHP та Git: [setup/README.md](setup/README.md)
+2. **Fork** цей репозиторій (кнопка Fork на GitHub)
+3. **Clone** свій форк:
 
 ```bash
 git clone https://github.com/ВАШ_ЛОГІН/php-labs.git
 cd php-labs
 ```
 
-3. **Додайте upstream** (для синхронізації):
+4. **Додайте upstream** (для синхронізації):
 
 ```bash
 git remote add upstream https://github.com/victorchei/php-labs.git
 ```
 
-4. **Запустіть сервер:**
+5. **Запустіть сервер:**
 
 ```bash
 php -S localhost:8000
@@ -39,7 +40,6 @@ php -S localhost:8000
 
 Відкрийте: <http://localhost:8000>
 
-Детальні інструкції: [Налаштування середовища](setup/README.md)
 
 ## Як отримати оновлення від викладача
 
