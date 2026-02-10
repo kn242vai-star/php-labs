@@ -4,7 +4,7 @@
 
 ## Теорія
 
-W3Schools PHP Tutorial — функції, рядки, масиви, форми
+[W3Schools PHP Tutorial](https://www.w3schools.com/php/) — функції, рядки, масиви, форми
 
 ## Як виконувати
 
@@ -60,6 +60,21 @@ lr2/
 1. Папка `Function/func.php` — функції: sin, cos, tg, my_tg(x), x^y, x!
 2. `index.php` — форма з полями x, y
 3. `calculate.php` — обробка, виклик функцій, таблиця результатів
+
+## Корисні посилання
+
+- [PHP String Functions](https://www.w3schools.com/php/php_ref_string.asp) — рядкові функції
+- [PHP str_replace()](https://www.w3schools.com/php/func_string_str_replace.asp) — пошук та заміна
+- [PHP Array Functions](https://www.w3schools.com/php/php_ref_array.asp) — функції масивів
+- [PHP Array Sorting](https://www.w3schools.com/php/php_arrays_sort.asp) — сортування масивів
+- [PHP Date/Time](https://www.w3schools.com/php/php_date.asp) — дата і час
+- [PHP Forms](https://www.w3schools.com/php/php_forms.asp) — форми
+- [PHP Form Handling](https://www.w3schools.com/php/php_form_handling.asp) — обробка форм
+- [PHP Sessions](https://www.w3schools.com/php/php_sessions.asp) — сесії
+- [PHP Cookies](https://www.w3schools.com/php/php_cookies.asp) — cookies
+- [PHP File Upload](https://www.w3schools.com/php/php_file_upload.asp) — завантаження файлів
+- [PHP Math](https://www.w3schools.com/php/php_math.asp) — математичні функції
+- [PHP Functions](https://www.w3schools.com/php/php_functions.asp) — користувацькі функції
 
 ## Здача
 

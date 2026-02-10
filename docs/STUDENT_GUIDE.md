@@ -384,6 +384,20 @@ php-labs/
 
 ---
 
+## Навчальні матеріали
+
+| Тема | Посилання |
+|------|-----------|
+| PHP Tutorial | [W3Schools PHP](https://www.w3schools.com/php/) |
+| PHP Reference | [PHP.net Manual](https://www.php.net/manual/en/) |
+| HTML/CSS | [W3Schools HTML](https://www.w3schools.com/html/), [W3Schools CSS](https://www.w3schools.com/css/) |
+| Git | [Git довідник](git-guide.md) |
+| Laravel | [Laravel Docs](https://laravel.com/docs) |
+
+> Використовуйте англомовні джерела (W3Schools, MDN, php.net). Російськомовні сайти (habr.com, metanit.com тощо) — не рекомендовані.
+
+---
+
 ## Корисні посилання
 
 - [Налаштування середовища](../setup/README.md)

@@ -6,7 +6,7 @@
 
 - Змінні, типи даних, операції в PHP
 - Конструкція if..else, switch, цикли
-- Джерело: W3Schools PHP Tutorial
+- Джерело: [W3Schools PHP Tutorial](https://www.w3schools.com/php/)
 
 ## Як виконувати
 
@@ -76,6 +76,19 @@ lr1/
 
 1. Функція `(rows, cols)` → HTML-таблиця n x n комірок різного кольору
 2. Функція `(n)` → n червоних квадратів випадкового розміру в випадковій позиції на чорному тлі
+
+## Корисні посилання
+
+- [PHP echo/print](https://www.w3schools.com/php/php_echo_print.asp) — вивід тексту
+- [PHP Variables](https://www.w3schools.com/php/php_variables.asp) — змінні
+- [PHP Operators](https://www.w3schools.com/php/php_operators.asp) — оператори
+- [PHP If...Else](https://www.w3schools.com/php/php_if_else.asp) — умови
+- [PHP Switch](https://www.w3schools.com/php/php_switch.asp) — switch
+- [PHP Loops](https://www.w3schools.com/php/php_looping_for.asp) — цикли
+- [PHP Arrays](https://www.w3schools.com/php/php_arrays.asp) — масиви
+- [PHP Functions](https://www.w3schools.com/php/php_functions.asp) — функції
+- [PHP Math](https://www.w3schools.com/php/php_math.asp) — математичні функції
+- [HTML Formatting](https://www.w3schools.com/html/html_formatting.asp) — форматування тексту
 
 ## Здача
 

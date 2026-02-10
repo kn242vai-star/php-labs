@@ -4,7 +4,7 @@
 
 ## Теорія
 
-W3Schools PHP OOP + лекція по MVC
+[W3Schools PHP OOP](https://www.w3schools.com/php/php_oop_what_is.asp) + лекція по MVC
 
 ## Як виконувати
 
@@ -103,6 +103,19 @@ W3Schools PHP OOP + лекція по MVC
 ├── index.php
 └── .htaccess
 ```
+
+## Корисні посилання
+
+- [PHP OOP](https://www.w3schools.com/php/php_oop_what_is.asp) — що таке ООП
+- [PHP Classes/Objects](https://www.w3schools.com/php/php_oop_classes_objects.asp) — класи та об'єкти
+- [PHP Inheritance](https://www.w3schools.com/php/php_oop_inheritance.asp) — наслідування
+- [PHP Abstract Classes](https://www.w3schools.com/php/php_oop_classes_abstract.asp) — абстрактні класи
+- [PHP Static Methods](https://www.w3schools.com/php/php_oop_static_methods.asp) — статичні методи
+- [PHP Sessions](https://www.w3schools.com/php/php_sessions.asp) — сесії
+- [PHP Cookies](https://www.w3schools.com/php/php_cookies.asp) — cookies
+- [PHP Form Handling](https://www.w3schools.com/php/php_form_handling.asp) — обробка форм
+- [PHP Form Validation](https://www.w3schools.com/php/php_form_validation.asp) — валідація форм
+- [MVC Pattern](https://developer.mozilla.org/en-US/docs/Glossary/MVC) — MVC (MDN)
 
 ## Здача
 
