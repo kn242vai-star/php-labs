@@ -75,6 +75,10 @@ git push
 6. Laravel
 7. Laravel (продовження)
 
+## Відомість з оцінками
+
+[Google Таблиця](https://docs.google.com/spreadsheets/d/1M2Ufe3UGO_XIDvcZdrFz9lf5TwFHi6Ei/edit?gid=1868485203#gid=1868485203)
+
 ## Критерії прийняття
 
 - [Структура репозиторію](docs/acceptance-criteria.md#структура-репозиторію)
