@@ -6,7 +6,7 @@ require_once __DIR__ . '/layout.php';
 
 function generateGrowingTriangles(int $n): string
 {
-    $html = "<div style='position:relative;width:100vw;height:100vh;background:#374151;overflow:hidden;'>";
+    $html = "<div class='shapes-container shapes-container--gray'>";
 
     for ($i = 0; $i < $n; $i++) {
         $size = 20 + $i * 5;

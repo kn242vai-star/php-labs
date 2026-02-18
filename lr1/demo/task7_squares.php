@@ -11,7 +11,7 @@ require_once __DIR__ . '/layout.php';
  */
 function generateRandomSquares(int $n): string
 {
-    $html = "<div style='position:relative;width:100vw;height:100vh;background:black;'>";
+    $html = "<div class='shapes-container shapes-container--black'>";
 
     for ($i = 0; $i < $n; $i++) {
         $size = mt_rand(20, 100);

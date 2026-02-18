@@ -34,6 +34,6 @@ $content = '
     <h1>🎨 Кольорова таблиця ' . $n . '×' . $n . '</h1>
     <div class="params">generateColorTable(' . $n . ')</div>
     ' . $table . '
-    <p class="info" style="color:rgba(255,255,255,0.8);margin-top:20px;">Оновіть сторінку для нових кольорів 🔄</p>';
+    <p class="info info-light mt-20">Оновіть сторінку для нових кольорів 🔄</p>';
 
 renderDemoLayout($content, 'Завдання 7.1', 'task7-table-body');
