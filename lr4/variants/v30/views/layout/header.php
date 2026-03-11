@@ -1,7 +1,7 @@
 <?php
 $bgColor = $_SESSION['bg_color'] ?? '#FFFAF0';
-$greetingName = $_COOKIE['greeting_name'] ?? '';
-$greetingGender = $_COOKIE['greeting_gender'] ?? '';
+$greetingName = is_string($_COOKIE['greeting_name'] ?? '') ? ($_COOKIE['greeting_name'] ?? '') : '';
+$greetingGender = is_string($_COOKIE['greeting_gender'] ?? '') ? ($_COOKIE['greeting_gender'] ?? '') : '';
 
 $greetingText = '';
 if ($greetingName !== '') {
@@ -24,7 +24,7 @@ $navItems = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($pageTitle ?? 'Кулінарний блог') ?> — Кулінарний блог</title>
+    <title><?= htmlspecialchars(($pageTitle ?? '') !== '' ? $pageTitle : 'Кулінарний блог') ?> — Кулінарний блог</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body style="background-color: <?= htmlspecialchars($bgColor) ?>">

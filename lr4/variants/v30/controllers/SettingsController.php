@@ -17,7 +17,7 @@ class SettingsController extends PageController
         $messageType = 'success';
 
         if ($this->request->isPost()) {
-            $color = $this->request->post('bg_color', '#FFFAF0');
+            $color = $this->request->postString('bg_color', '#FFFAF0');
 
             if (array_key_exists($color, $this->availableColors)) {
                 $_SESSION['bg_color'] = $color;
@@ -42,8 +42,8 @@ class SettingsController extends PageController
         $messageType = 'success';
 
         if ($this->request->isPost()) {
-            $name = trim($this->request->post('greeting_name', ''));
-            $gender = $this->request->post('greeting_gender', '');
+            $name = trim($this->request->postString('greeting_name'));
+            $gender = $this->request->postString('greeting_gender');
 
             if ($name === '') {
                 $message = "Ім'я не може бути порожнім.";

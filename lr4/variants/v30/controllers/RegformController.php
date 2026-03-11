@@ -44,7 +44,7 @@ class RegformController extends PageController
     {
         $errors = [];
 
-        $login = trim($data['login'] ?? '');
+        $login = is_string($data['login'] ?? '') ? trim($data['login'] ?? '') : '';
         if ($login === '') {
             $errors['login'] = "Логін є обов'язковим.";
         } else {
@@ -57,7 +57,7 @@ class RegformController extends PageController
             }
         }
 
-        $password = $data['password'] ?? '';
+        $password = is_string($data['password'] ?? '') ? ($data['password'] ?? '') : '';
         if ($password === '') {
             $errors['password'] = "Пароль є обов'язковим.";
         } else {
@@ -69,7 +69,7 @@ class RegformController extends PageController
             }
         }
 
-        $passwordConfirm = $data['password_confirm'] ?? '';
+        $passwordConfirm = is_string($data['password_confirm'] ?? '') ? ($data['password_confirm'] ?? '') : '';
         if ($passwordConfirm === '') {
             $errors['password_confirm'] = "Підтвердження паролю є обов'язковим.";
         } elseif ($password !== $passwordConfirm) {

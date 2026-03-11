@@ -23,6 +23,12 @@ class Request
         return $this->post[$key] ?? $default;
     }
 
+    public function postString(string $key, string $default = ''): string
+    {
+        $value = $this->post[$key] ?? $default;
+        return is_string($value) ? $value : $default;
+    }
+
     public function allGet(): array
     {
         return $this->get;
