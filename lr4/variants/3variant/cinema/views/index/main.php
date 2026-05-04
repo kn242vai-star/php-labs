@@ -31,6 +31,15 @@
         </div>
 
         <div class="card">
+            <h3 class="card__title">Квитки та бронювання</h3>
+            <p class="card__text">
+                Оберіть фільм, час сеансу та зручні місця у залі.
+                Після підтвердження квиток буде куплено та місце заброньовано.
+            </p>
+            <a href="index.php?route=ticket/booking" class="btn btn--small">Перейти</a>
+        </div>
+
+        <div class="card">
             <h3 class="card__title">Сесії та Cookie</h3>
             <p class="card__text">
                 Зміна кольору фону через сесію. Привітання користувача
