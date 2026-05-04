@@ -16,6 +16,7 @@ $currentRoute = $_GET['route'] ?? 'index/main';
 
 $navItems = [
     'index/main' => 'Головна',
+    'ticket/booking' => 'Квитки',
     'guestbook/index' => 'Гостьова книга',
     'upload/index' => 'Завантаження',
     'folder/create' => 'Каталоги',

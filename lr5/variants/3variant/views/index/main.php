@@ -33,6 +33,12 @@
         </div>
 
         <div class="card">
+            <h3 class="card__title">Квитки та бронювання</h3>
+            <p class="card__text">Оберіть фільм, час сеансу та зручні місця у залі. Бронювання через БД.</p>
+            <a href="index.php?route=ticket/booking" class="btn btn--small">Квитки</a>
+        </div>
+
+        <div class="card">
             <h3 class="card__title">Акаунт глядача</h3>
             <p class="card__text">Реєстрація, вхід, профіль. Хешування паролів, сесійна авторизація.</p>
             <a href="index.php?route=auth/login" class="btn btn--small">Увійти</a>

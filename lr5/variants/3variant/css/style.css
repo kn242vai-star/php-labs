@@ -736,3 +736,62 @@ h3 {
         width: 100%;
     }
 }
+
+/* ===== Seat Map ===== */
+.seat-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+.seat-legend div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.seat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 4px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    color: #1f2937;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.seat input {
+    display: none;
+}
+
+.seat--taken {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #991b1b;
+    cursor: not-allowed;
+}
+
+.seat--selected {
+    background: #d1fae5;
+    border-color: #34d399;
+}
+
+.seat-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.seat-row__label {
+    width: 32px;
+    font-weight: 600;
+    margin-right: 12px;
+}
