@@ -17,7 +17,9 @@
 }
 
 /* ===== Reset & Base ===== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -512,7 +514,7 @@ h3 {
     border: 0;
 }
 
-.color-picker__item input:focus + .color-picker__swatch {
+.color-picker__item input:focus+.color-picker__swatch {
     outline: 3px solid #2563eb;
     outline-offset: 2px;
 }
