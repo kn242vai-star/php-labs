@@ -52,7 +52,7 @@
     </div>
 
     <div class="success-page__actions">
-        <a href="index.php?route=ticket/booking" class="btn">Забронювати ще квиток</a>
+        <a href="index.php?route=ticket/booking&show_id=<?= urlencode($ticket['show']['id']) ?>" class="btn">Забронювати ще квиток</a>
         <a href="index.php" class="btn btn--secondary">На головну</a>
     </div>
 </div>

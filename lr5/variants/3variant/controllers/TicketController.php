@@ -19,7 +19,7 @@ class TicketController extends PageController
 
         $errors = [];
         $old = [
-            'show_id' => '',
+            'show_id' => (string)$this->request->get('show_id', ''),
             'seats' => [],
         ];
 
@@ -28,7 +28,6 @@ class TicketController extends PageController
             $old['seats'] = $this->request->post('seat', []);
 
             $errors = $this->validateBooking($old);
-
             if (empty($errors)) {
                 $show = $this->findShow($old['show_id']);
                 $selectedSeats = array_values(array_unique($old['seats']));
@@ -64,6 +63,8 @@ class TicketController extends PageController
                     $errors['seats'] = 'Помилка бронювання. Спробуйте ще раз.';
                 }
             }
+        } elseif (empty($old['show_id']) && !empty($_SESSION['last_ticket'])) {
+            $old['show_id'] = (string)($_SESSION['last_ticket']['show']['id'] ?? '');
         }
 
         $shows = $this->getShowsWithMovies();
@@ -87,7 +88,6 @@ class TicketController extends PageController
         }
 
         $ticket = $_SESSION['last_ticket'];
-        unset($_SESSION['last_ticket']);
 
         $this->render('ticket/success', [
             'ticket' => $ticket,

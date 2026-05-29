@@ -61,3 +61,58 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const seatLabels = document.querySelectorAll('.seat input[type="checkbox"]');
+        const reservedMap = <?= json_encode($reserved) ?> || {};
+        const showSelect = document.querySelector('#show_id');
+
+        function updateSeatStateForCheckbox(checkbox) {
+            const label = checkbox.closest('label.seat');
+            if (!label) return;
+            if (checkbox.checked) {
+                label.classList.add('seat--selected');
+            } else {
+                label.classList.remove('seat--selected');
+            }
+        }
+
+        seatLabels.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                updateSeatStateForCheckbox(checkbox);
+            });
+            updateSeatStateForCheckbox(checkbox);
+        });
+
+        function applyReserved(showId) {
+            seatLabels.forEach(function (checkbox) {
+                const label = checkbox.closest('label.seat');
+                const code = checkbox.value;
+
+                const isReserved = Array.isArray(reservedMap[showId]) && reservedMap[showId].indexOf(code) !== -1;
+
+                if (isReserved) {
+                    checkbox.checked = false;
+                    checkbox.disabled = true;
+                    label.classList.add('seat--taken');
+                    label.classList.remove('seat--selected');
+                } else {
+                    checkbox.disabled = false;
+                    label.classList.remove('seat--taken');
+                }
+            });
+        }
+
+        // On show change, update reserved seats
+        if (showSelect) {
+            showSelect.addEventListener('change', function () {
+                const id = showSelect.value;
+                applyReserved(id);
+            });
+
+            // Apply reserved state for initially selected show
+            applyReserved(showSelect.value);
+        }
+    });
+</script>
