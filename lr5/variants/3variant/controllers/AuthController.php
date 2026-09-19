@@ -44,6 +44,8 @@ class AuthController extends PageController
                 session_regenerate_id(true);
                 $_SESSION['user_id'] = $this->db->lastInsertId();
                 $_SESSION['user_login'] = trim($old['login']);
+                $_SESSION['is_admin'] = false;
+                $_SESSION['admin_mode'] = false;
                 $this->redirect('auth/profile');
                 return;
             }
@@ -79,6 +81,14 @@ class AuthController extends PageController
                     session_regenerate_id(true);
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_login'] = $user['login'];
+                    $_SESSION['is_admin'] = (($user['role'] ?? 'user') === 'admin');
+                    $_SESSION['admin_mode'] = $_SESSION['is_admin'];
+
+                    if ($_SESSION['is_admin']) {
+                        $this->redirect('admin/dashboard');
+                        return;
+                    }
+
                     $this->redirect('auth/profile');
                     return;
                 }
@@ -168,7 +178,7 @@ class AuthController extends PageController
 
     public function action_logout(): void
     {
-        unset($_SESSION['user_id'], $_SESSION['user_login']);
+        unset($_SESSION['user_id'], $_SESSION['user_login'], $_SESSION['is_admin'], $_SESSION['admin_mode']);
         session_regenerate_id(true);
         $this->redirect('index/main');
     }
@@ -184,7 +194,7 @@ class AuthController extends PageController
             $stmt = $this->db->prepare('DELETE FROM users WHERE id = :id');
             $stmt->execute([':id' => $_SESSION['user_id']]);
 
-            unset($_SESSION['user_id'], $_SESSION['user_login']);
+            unset($_SESSION['user_id'], $_SESSION['user_login'], $_SESSION['is_admin'], $_SESSION['admin_mode']);
             session_regenerate_id(true);
 
             $_SESSION['flash_success'] = 'Ваш акаунт видалено.';

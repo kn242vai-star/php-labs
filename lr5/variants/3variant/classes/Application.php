@@ -41,17 +41,21 @@ class Application
             return;
         }
 
+        $db = Database::getInstance();
+
         if (!file_exists($dbPath)) {
-            $db = Database::getInstance();
             $db->exec(file_get_contents($schemaPath));
+            $this->ensureAdminCompatibility($db);
+            $this->ensureMoviePosterCompatibility($db);
             return;
         }
-
-        $db = Database::getInstance();
 
         if ($this->hasMissingSchema($db)) {
             $this->repairDatabase($db, $schemaPath);
         }
+
+        $this->ensureAdminCompatibility($db);
+        $this->ensureMoviePosterCompatibility($db);
     }
 
     private function hasMissingSchema(PDO $db): bool
@@ -95,6 +99,63 @@ class Application
     {
         $stmt = $db->query("SELECT 1 FROM {$table} LIMIT 1");
         return (bool) $stmt->fetch();
+    }
+
+    private function ensureAdminCompatibility(PDO $db): void
+    {
+        $columns = $db->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_ASSOC);
+        $hasRole = false;
+
+        foreach ($columns as $column) {
+            if (($column['name'] ?? '') === 'role') {
+                $hasRole = true;
+                break;
+            }
+        }
+
+        if (!$hasRole) {
+            $db->exec("ALTER TABLE users ADD COLUMN role VARCHAR(20) NOT NULL DEFAULT 'user'");
+        }
+
+        $adminStmt = $db->prepare('SELECT id, role FROM users WHERE login = :login LIMIT 1');
+        $adminStmt->execute([':login' => 'admin']);
+        $adminUser = $adminStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$adminUser) {
+            $db->prepare('INSERT INTO users (login, password, email, first_name, last_name, phone, city, gender, about, role) VALUES (:login, :password, :email, :first_name, :last_name, :phone, :city, :gender, :about, :role)')
+                ->execute([
+                    ':login' => 'admin',
+                    ':password' => password_hash('admin123', PASSWORD_DEFAULT),
+                    ':email' => 'admin@cinema.local',
+                    ':first_name' => 'Адмін',
+                    ':last_name' => 'Система',
+                    ':phone' => '',
+                    ':city' => 'Kyiv',
+                    ':gender' => 'male',
+                    ':about' => 'Керівник системи адміністрування',
+                    ':role' => 'admin',
+                ]);
+        } elseif (($adminUser['role'] ?? '') !== 'admin') {
+            $db->prepare('UPDATE users SET role = :role WHERE login = :login')
+                ->execute([':role' => 'admin', ':login' => 'admin']);
+        }
+    }
+
+    private function ensureMoviePosterCompatibility(PDO $db): void
+    {
+        $columns = $db->query("PRAGMA table_info(movies)")->fetchAll(PDO::FETCH_ASSOC);
+        $hasPoster = false;
+
+        foreach ($columns as $column) {
+            if (($column['name'] ?? '') === 'poster_url') {
+                $hasPoster = true;
+                break;
+            }
+        }
+
+        if (!$hasPoster) {
+            $db->exec("ALTER TABLE movies ADD COLUMN poster_url VARCHAR(255) NOT NULL DEFAULT ''");
+        }
     }
 
     private function show404(string $message): void

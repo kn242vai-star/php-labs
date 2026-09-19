@@ -10,6 +10,8 @@ if ($greetingName !== '') {
 }
 
 $isLoggedIn = isset($_SESSION['user_id']);
+$isAdmin = !empty($_SESSION['is_admin']);
+$adminMode = !empty($_SESSION['admin_mode']);
 $userLogin = $_SESSION['user_login'] ?? '';
 
 $currentRoute = $_GET['route'] ?? 'index/main';
@@ -18,11 +20,14 @@ $navItems = [
     'index/main' => 'Головна',
     'ticket/booking' => 'Квитки',
     'guestbook/index' => 'Гостьова книга',
-    'upload/index' => 'Завантаження',
     'folder/create' => 'Каталоги',
     'movie/list' => 'Фільми',
-    'settings/color' => 'Налаштування',
 ];
+
+if ($isAdmin && $adminMode) {
+    $navItems['upload/index'] = 'Завантаження';
+    $navItems['settings/color'] = 'Налаштування';
+}
 ?>
 <!DOCTYPE html>
 <html lang="uk">
@@ -44,10 +49,17 @@ $navItems = [
                     <?php endif; ?>
                     <div class="header__auth">
                         <?php if ($isLoggedIn): ?>
+                            <?php if ($isAdmin && $adminMode): ?>
+                                <a href="index.php?route=admin/dashboard" class="header__auth-link">Адмін-панель</a>
+                            <?php endif; ?>
+                            <?php if ($isAdmin): ?>
+                                <a href="index.php?route=admin/toggle_mode" class="header__auth-link"><?= $adminMode ? 'Режим користувача' : 'Режим адміна' ?></a>
+                            <?php endif; ?>
                             <a href="index.php?route=auth/profile" class="header__auth-link"><?= htmlspecialchars($userLogin) ?></a>
                             <a href="index.php?route=auth/logout" class="header__auth-link header__auth-link--logout">Вийти</a>
                         <?php else: ?>
                             <a href="index.php?route=auth/login" class="header__auth-link">Увійти</a>
+                            <a href="index.php?route=admin/login" class="header__auth-link">Адмін</a>
                             <a href="index.php?route=auth/register" class="header__auth-link">Реєстрація</a>
                         <?php endif; ?>
                     </div>

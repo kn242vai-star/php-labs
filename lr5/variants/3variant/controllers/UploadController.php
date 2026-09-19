@@ -21,11 +21,19 @@ class UploadController extends PageController
 
     public function action_index(): void
     {
+        if (!$this->canAccessAdminTools()) {
+            $_SESSION['flash_error'] = 'Доступ до завантаження файлів доступний лише в режимі адміністратора.';
+            $this->redirect('index/main');
+            return;
+        }
+
         $message = '';
         $error = '';
+        $movieOptions = $this->getMovieOptions();
 
         if ($this->request->isPost() && isset($_FILES['image'])) {
             $file = $_FILES['image'];
+            $selectedMovieId = (int)($this->request->post('movie_id', 0));
 
             if ($file['error'] !== UPLOAD_ERR_OK) {
                 $error = 'Помилка завантаження файлу (код: ' . $file['error'] . ').';
@@ -60,6 +68,10 @@ class UploadController extends PageController
                 $dest = $this->uploadDir . '/' . $safeName;
 
                 if (move_uploaded_file($file['tmp_name'], $dest)) {
+                    $posterPath = 'data/uploads/' . $safeName;
+                    if ($selectedMovieId > 0) {
+                        $this->assignPosterToMovie($selectedMovieId, $posterPath);
+                    }
                     $message = 'Зображення "' . htmlspecialchars($file['name']) . '" завантажено!';
                 } else {
                     $error = 'Не вдалося зберегти файл.';
@@ -71,6 +83,7 @@ class UploadController extends PageController
 
         $this->render('upload/index', [
             'images' => $images,
+            'movieOptions' => $movieOptions,
             'message' => $message,
             'error' => $error,
         ], 'Завантаження зображень');
@@ -78,6 +91,12 @@ class UploadController extends PageController
 
     public function action_delete(): void
     {
+        if (!$this->canAccessAdminTools()) {
+            $_SESSION['flash_error'] = 'Доступ до завантаження файлів доступний лише в режимі адміністратора.';
+            $this->redirect('index/main');
+            return;
+        }
+
         if ($this->request->isPost()) {
             $image = basename($this->request->post('image') ?? '');
             $target = $this->uploadDir . '/' . $image;
@@ -89,6 +108,7 @@ class UploadController extends PageController
             } elseif (!unlink($target)) {
                 $_SESSION['flash_error'] = 'Не вдалося видалити зображення.';
             } else {
+                $this->clearPosterForImage($image);
                 $_SESSION['flash_success'] = 'Зображення видалено.';
             }
         }
@@ -98,6 +118,12 @@ class UploadController extends PageController
 
     public function action_rename(): void
     {
+        if (!$this->canAccessAdminTools()) {
+            $_SESSION['flash_error'] = 'Доступ до завантаження файлів доступний лише в режимі адміністратора.';
+            $this->redirect('index/main');
+            return;
+        }
+
         if ($this->request->isPost()) {
             $currentName = basename($this->request->post('current_name') ?? '');
             $newNameRaw = trim($this->request->post('new_name') ?? '');
@@ -133,6 +159,7 @@ class UploadController extends PageController
                         } elseif (!rename($currentPath, $newPath)) {
                             $_SESSION['flash_error'] = 'Не вдалося перейменувати файл.';
                         } else {
+                            $this->syncPosterFilename($currentName, $newBase);
                             $_SESSION['flash_success'] = 'Зображення перейменовано.';
                         }
                     }
@@ -143,22 +170,76 @@ class UploadController extends PageController
         $this->redirect('upload/index');
     }
 
+    private function canAccessAdminTools(): bool
+    {
+        return !empty($_SESSION['is_admin']) && !empty($_SESSION['admin_mode']);
+    }
+
+    private function getMovieOptions(): array
+    {
+        $db = Database::getInstance();
+        $stmt = $db->query('SELECT id, title FROM movies ORDER BY title ASC');
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    private function assignPosterToMovie(int $movieId, string $posterPath): void
+    {
+        $db = Database::getInstance();
+        $stmt = $db->prepare('UPDATE movies SET poster_url = :poster_url WHERE id = :id');
+        $stmt->execute([
+            ':poster_url' => $posterPath,
+            ':id' => $movieId,
+        ]);
+    }
+
+    private function clearPosterForImage(string $imageName): void
+    {
+        $db = Database::getInstance();
+        $posterPath = 'data/uploads/' . basename($imageName);
+        $stmt = $db->prepare('UPDATE movies SET poster_url = :empty WHERE poster_url = :poster_url');
+        $stmt->execute([
+            ':empty' => '',
+            ':poster_url' => $posterPath,
+        ]);
+    }
+
+    private function syncPosterFilename(string $oldName, string $newName): void
+    {
+        $db = Database::getInstance();
+        $oldPath = 'data/uploads/' . $oldName;
+        $newPath = 'data/uploads/' . $newName;
+        $stmt = $db->prepare('UPDATE movies SET poster_url = :new_path WHERE poster_url = :old_path');
+        $stmt->execute([
+            ':new_path' => $newPath,
+            ':old_path' => $oldPath,
+        ]);
+    }
+
     private function getImages(): array
     {
         $images = [];
         $files = glob($this->uploadDir . '/*.{jpg,jpeg,png,gif,webp}', GLOB_BRACE);
+        $movieMap = [];
+
+        $db = Database::getInstance();
+        $movies = $db->query('SELECT id, title, poster_url FROM movies ORDER BY title ASC')->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($movies as $movie) {
+            $movieMap[trim((string)($movie['poster_url'] ?? ''))] = $movie['title'];
+        }
 
         if ($files) {
             rsort($files);
             foreach ($files as $file) {
                 $baseName = basename($file);
+                $url = 'data/uploads/' . $baseName;
                 $images[] = [
                     'name' => $baseName,
                     'display_name' => pathinfo($baseName, PATHINFO_FILENAME),
                     'extension' => strtolower(pathinfo($baseName, PATHINFO_EXTENSION)),
-                    'url' => 'data/uploads/' . $baseName,
+                    'url' => $url,
                     'size' => filesize($file),
                     'date' => date('Y-m-d H:i', filemtime($file)),
+                    'movie_title' => $movieMap[$url] ?? null,
                 ];
             }
         }

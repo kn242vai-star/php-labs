@@ -21,6 +21,16 @@ $error = $error ?? '';
         <input type="file" id="upload_image" name="image" class="form__input" accept="image/*">
     </div>
 
+    <div class="form__group">
+        <label for="movie_id" class="form__label">Прив'язати до фільму</label>
+        <select id="movie_id" name="movie_id" class="form__select">
+            <option value="">Не прив'язувати</option>
+            <?php foreach ($movieOptions ?? [] as $movie): ?>
+                <option value="<?= (int)$movie['id'] ?>"><?= htmlspecialchars($movie['title']) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
     <div class="form__actions">
         <button type="submit" class="btn">Завантажити</button>
     </div>
@@ -38,6 +48,9 @@ $error = $error ?? '';
                 <div class="gallery__info">
                     <span class="gallery__name"><?= htmlspecialchars($img['display_name']) ?></span>
                     <span class="gallery__meta"><?= htmlspecialchars($img['date']) ?> &middot; <?= round($img['size'] / 1024) ?> КБ</span>
+                    <?php if (!empty($img['movie_title'])): ?>
+                        <span class="gallery__meta">Постер для: <?= htmlspecialchars($img['movie_title']) ?></span>
+                    <?php endif; ?>
                 </div>
                 <form method="POST" action="index.php?route=upload/rename" class="gallery__rename">
                     <input type="hidden" name="current_name" value="<?= htmlspecialchars($img['name']) ?>">

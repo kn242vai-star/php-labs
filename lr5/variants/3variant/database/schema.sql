@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     city VARCHAR(50) DEFAULT '',
     gender VARCHAR(10) DEFAULT '',
     about TEXT DEFAULT '',
+    role VARCHAR(20) NOT NULL DEFAULT 'user',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -21,6 +22,7 @@ CREATE TABLE IF NOT EXISTS movies (
     genre VARCHAR(50) DEFAULT '',
     year YEAR NOT NULL,
     duration_min INTEGER NOT NULL,
+    poster_url VARCHAR(255) NOT NULL DEFAULT '',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

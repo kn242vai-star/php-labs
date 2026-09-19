@@ -12,6 +12,12 @@ class SettingsController extends PageController
 
     public function action_color(): void
     {
+        if (!$this->canAccessAdminTools()) {
+            $_SESSION['flash_error'] = 'Налаштування інтерфейсу доступні лише в режимі адміністратора.';
+            $this->redirect('index/main');
+            return;
+        }
+
         $message = '';
         $error = '';
 
@@ -36,6 +42,12 @@ class SettingsController extends PageController
 
     public function action_greeting(): void
     {
+        if (!$this->canAccessAdminTools()) {
+            $_SESSION['flash_error'] = 'Налаштування інтерфейсу доступні лише в режимі адміністратора.';
+            $this->redirect('index/main');
+            return;
+        }
+
         $message = '';
         $error = '';
 
@@ -64,5 +76,10 @@ class SettingsController extends PageController
             'currentName' => $_COOKIE['greeting_name'] ?? '',
             'currentGender' => $_COOKIE['greeting_gender'] ?? '',
         ], 'Привітання (Cookie)');
+    }
+
+    private function canAccessAdminTools(): bool
+    {
+        return !empty($_SESSION['is_admin']) && !empty($_SESSION['admin_mode']);
     }
 }
